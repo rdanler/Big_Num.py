@@ -1,4 +1,6 @@
+##Big Num
 import time
+
 import machine
 from machine import I2C
 from lcd_api import LcdApi
@@ -8,26 +10,47 @@ I2C_ADDR     = 0x27
 I2C_NUM_ROWS = 4
 I2C_NUM_COLS = 20
 
+def colon(x):
+    lcd.move_to(x, 1)
+    lcd.putstr('\x00\x02\x00\x00')
+    lcd.move_to(x, 2)
+    lcd.putstr('\x00\x07\x00\x00')
+    
+def no_colon(x):
+    lcd.move_to(x, 1)
+    lcd.putstr('\x00\x00\x00')
+    lcd.move_to(x, 2)
+    lcd.putstr('\x00\x00\x00')
+    
+def blank(x):
+    lcd.move_to(x, 0)
+    lcd.putstr('\x00\x00\x00\x00')
+    lcd.move_to(x, 1)
+    lcd.putstr('\x00\x00\x00\x00')
+    lcd.move_to(x, 2)
+    lcd.putstr('\x00\x00\x00\x00')
+    lcd.move_to(x, 3)
+    lcd.putstr('\x00\x00\x00\x00')
 
 def zero(x):
     lcd.move_to(x, 0)
-    lcd.putstr('\x04\x01\x01\x03')
+    lcd.putstr('\x04\x02\x02\x03')
     lcd.move_to(x, 1)
     lcd.putstr('\x01\x00\x00\x01')
     lcd.move_to(x, 2)
     lcd.putstr('\x01\x00\x00\x01')
     lcd.move_to(x, 3)
-    lcd.putstr('\x05\x01\x01\x06')
+    lcd.putstr('\x05\x07\x07\x06')
 
 def one(x):
     lcd.move_to(x, 0)
-    lcd.putstr('\x00\x04\x01\x00')
+    lcd.putstr('\x04\x01\x00\x00')
     lcd.move_to(x, 1)
-    lcd.putstr('\x00\x00\x01\x00')
+    lcd.putstr('\x00\x01\x00\x00')
     lcd.move_to(x, 2)
-    lcd.putstr('\x00\x00\x01\x00')
+    lcd.putstr('\x00\x01\x00\x00')
     lcd.move_to(x, 3)
-    lcd.putstr('\x00\x07\x01\x07')
+    lcd.putstr('\x07\x01\x07\x00')
 
 def two(x):
     lcd.move_to(x, 0)
@@ -41,13 +64,13 @@ def two(x):
 
 def three(x):
     lcd.move_to(x, 0)
-    lcd.putstr('\x04\x01\x01\x03')
+    lcd.putstr('\x04\x02\x02\x03')
     lcd.move_to(x, 1)
     lcd.putstr('\x00\x07\x07\x01')
     lcd.move_to(x, 2)
     lcd.putstr('\x00\x00\x00\x01')
     lcd.move_to(x, 3)
-    lcd.putstr('\x05\x01\x01\x06')
+    lcd.putstr('\x05\x07\x07\x06')
     
 def four(x):
     lcd.move_to(x, 0)
@@ -91,13 +114,13 @@ def seven(x):
 
 def eight(x):
     lcd.move_to(x, 0)
-    lcd.putstr('\x04\x01\x01\x03')
+    lcd.putstr('\x04\x02\x02\x03')
     lcd.move_to(x, 1)
     lcd.putstr('\x01\x07\x07\x01')
     lcd.move_to(x, 2)
     lcd.putstr('\x01\x00\x00\x01')
     lcd.move_to(x, 3)
-    lcd.putstr('\x05\x01\x01\x06')
+    lcd.putstr('\x05\x07\x07\x06')
 
 def nine(x):
     lcd.move_to(x, 0)
@@ -124,8 +147,14 @@ lcd = I2cLcd(i2c, I2C_ADDR, I2C_NUM_ROWS, I2C_NUM_COLS)
 
 load_Num_Bits()
 
-## test code
-one(0)
-two(5)
-three(11)
-four(16)
+nine(0)
+zero(5)
+colon(9)
+blank(11)
+eight(16)
+
+      
+
+
+
+
